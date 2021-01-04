@@ -184,7 +184,6 @@ static inline void lv_scr_load(lv_obj_t * scr)
     lv_disp_load_scr(scr);
 }
 
-
 /**********************
  *      MACROS
  **********************/
@@ -226,4 +225,4 @@ static inline lv_coord_t lv_dpx(lv_coord_t n)
 } /* extern "C" */
 #endif
 
-#endif /*LV_TEMPL_H*/
+#endif /*LV_DISP_H*/

@@ -44,7 +44,7 @@ static inline size_t get_prop_size(uint8_t prop_id);
 static inline size_t get_next_prop_index(uint8_t prop_id, size_t id);
 
 /**********************
- *  GLOABAL VARIABLES
+ *  GLOBAL VARIABLES
  **********************/
 
 /**********************
@@ -340,7 +340,7 @@ uint16_t _lv_style_get_mem_size(const lv_style_t * style)
 
     size_t i = 0;
     uint8_t prop_id;
-    while((prop_id = get_style_prop_id(style, i)) != _LV_STYLE_CLOSEING_PROP) {
+    while((prop_id = get_style_prop_id(style, i)) != _LV_STYLE_CLOSING_PROP) {
         i = get_next_prop_index(prop_id, i);
     }
 
@@ -378,7 +378,7 @@ void _lv_style_set_int(lv_style_t * style, lv_style_property_t prop, lv_style_in
 
     /*Add new property if not exists yet*/
     uint8_t new_prop_size = (sizeof(lv_style_property_t) + sizeof(lv_style_int_t));
-    lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
+    lv_style_property_t end_mark = _LV_STYLE_CLOSING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
     uint16_t size = _lv_style_get_mem_size(style);
@@ -424,7 +424,7 @@ void _lv_style_set_color(lv_style_t * style, lv_style_property_t prop, lv_color_
 
     /*Add new property if not exists yet*/
     uint8_t new_prop_size = (sizeof(lv_style_property_t) + sizeof(lv_color_t));
-    lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
+    lv_style_property_t end_mark = _LV_STYLE_CLOSING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
     uint16_t size = _lv_style_get_mem_size(style);
@@ -471,7 +471,7 @@ void _lv_style_set_opa(lv_style_t * style, lv_style_property_t prop, lv_opa_t op
 
     /*Add new property if not exists yet*/
     uint8_t new_prop_size = (sizeof(lv_style_property_t) + sizeof(lv_opa_t));
-    lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
+    lv_style_property_t end_mark = _LV_STYLE_CLOSING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
     uint16_t size = _lv_style_get_mem_size(style);
@@ -518,7 +518,7 @@ void _lv_style_set_ptr(lv_style_t * style, lv_style_property_t prop, const void 
 
     /*Add new property if not exists yet*/
     uint8_t new_prop_size = (sizeof(lv_style_property_t) + sizeof(const void *));
-    lv_style_property_t end_mark = _LV_STYLE_CLOSEING_PROP;
+    lv_style_property_t end_mark = _LV_STYLE_CLOSING_PROP;
     uint8_t end_mark_size = sizeof(end_mark);
 
     uint16_t size = _lv_style_get_mem_size(style);
@@ -827,8 +827,9 @@ lv_res_t _lv_style_list_get_int(lv_style_list_t * list, lv_style_property_t prop
 
     int16_t ci;
     for(ci = 0; ci < list->style_cnt; ci++) {
-        lv_style_t * class = lv_style_list_get_style(list, ci);
-        int16_t weight_act = _lv_style_get_int(class, prop, &value_act);
+        /* changed class to _class to allow compilation as c++ */
+        lv_style_t * _class = lv_style_list_get_style(list, ci);
+        int16_t weight_act = _lv_style_get_int(_class, prop, &value_act);
 
         /*On perfect match return the value immediately*/
         if(weight_act == weight_goal) {
@@ -880,8 +881,8 @@ lv_res_t _lv_style_list_get_color(lv_style_list_t * list, lv_style_property_t pr
 
     int16_t ci;
     for(ci = 0; ci < list->style_cnt; ci++) {
-        lv_style_t * class = lv_style_list_get_style(list, ci);
-        int16_t weight_act = _lv_style_get_color(class, prop, &value_act);
+        lv_style_t * _class = lv_style_list_get_style(list, ci);
+        int16_t weight_act = _lv_style_get_color(_class, prop, &value_act);
         /*On perfect match return the value immediately*/
         if(weight_act == weight_goal) {
             *res = value_act;
@@ -930,8 +931,8 @@ lv_res_t _lv_style_list_get_opa(lv_style_list_t * list, lv_style_property_t prop
 
     int16_t ci;
     for(ci = 0; ci < list->style_cnt; ci++) {
-        lv_style_t * class = lv_style_list_get_style(list, ci);
-        int16_t weight_act = _lv_style_get_opa(class, prop, &value_act);
+        lv_style_t * _class = lv_style_list_get_style(list, ci);
+        int16_t weight_act = _lv_style_get_opa(_class, prop, &value_act);
         /*On perfect match return the value immediately*/
         if(weight_act == weight_goal) {
             *res = value_act;
@@ -980,8 +981,8 @@ lv_res_t _lv_style_list_get_ptr(lv_style_list_t * list, lv_style_property_t prop
 
     int16_t ci;
     for(ci = 0; ci < list->style_cnt; ci++) {
-        lv_style_t * class = lv_style_list_get_style(list, ci);
-        int16_t weight_act = _lv_style_get_ptr(class, prop, &value_act);
+        lv_style_t * _class = lv_style_list_get_style(list, ci);
+        int16_t weight_act = _lv_style_get_ptr(_class, prop, &value_act);
         /*On perfect match return the value immediately*/
         if(weight_act == weight_goal) {
             *res = value_act;
@@ -1068,7 +1069,7 @@ LV_ATTRIBUTE_FAST_MEM static inline int32_t get_property_index(const lv_style_t 
     size_t i = 0;
 
     uint8_t prop_id;
-    while((prop_id = get_style_prop_id(style, i)) != _LV_STYLE_CLOSEING_PROP) {
+    while((prop_id = get_style_prop_id(style, i)) != _LV_STYLE_CLOSING_PROP) {
         if(prop_id == id_to_find) {
             lv_style_attr_t attr_i;
             attr_i = get_style_prop_attr(style, i);

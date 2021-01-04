@@ -1,13 +1,125 @@
 # Changelog
 
-## v7.5.0 (planned at 15.09.2020)
+## v7.9.0 (Plann1d at 05.01.2020
+
+### New features
+- feat(chart) add lv_chart_remove_series and lv_chart_hide_series
+- feat(img_cahce) allow disabling image cacheing
+- calendar: make get_day_of_week() public
+- Added support for Zephyr integration
+ 
+### Bugfixes
+- fix(draw_rect) free buffer used for arabic processing
+- fix(win) arabic process the title of the window
+- fix(dropdown) arabic process the option in lv_dropdown_add_option
+- fix(textarea) buffer overflow in password mode with UTF-8 characters
+- fix(textarea) cursor position after hiding character in password mode
+- fix(linemeter) draw critical lines with correct color
+- fix(layout) stop layout after recursion threshold is reached
+- fix(gauge) fix redraw with image needle
+
+## v7.8.1
+
+### Bugfixes
+- fix(lv_scr_load_anim) fix when multiple screen are loaded at tsame time with delay
+- fix(page) fix LV_SCOLLBAR_MODE_DRAG
+
+## v7.8.0 (01.12.2020)
+
+### New features
+- make DMA2D non blocking 
+- add unscii-16 built-in font
+- add KConfig
+- add lv_refr_get_fps_avg()
+
+### Bugfixes
+- fix(btnmatrix) handle arabic texts in button matrices
+- fix(indev) disabled object shouldn't absorb clicks but let the parent to be clicked
+- fix(arabic) support processing again already processed texts with _lv_txt_ap_proc
+- fix(textarea) support Arabic letter connections
+- fix(dropdown) support Arabic letter connections
+- fix(value_str) support Arabic letter connections in value string property
+- fix(indev) in LV_INDEV_TYPE_BUTTON recognize 1 cycle long presses too
+- fix(arc) make arc work with encoder
+- fix(slider) adjusting the left knob too with encoder
+- fix reference to LV_DRAW_BUF_MAX_NUM in lv_mem.c
+- fix(polygon draw) join adjacent points if they are on the same coordinate
+- fix(linemeter) fix invalidation when setting new value 
+- fix(table) add missing invalidation when changeing cell type
+- refactor(roller) rename LV_ROLLER_MODE_INIFINITE -> LV_ROLLER_MODE_INFINITE
+
+## v7.7.2 (17.11.2020)
+### Bugfixes
+- fix(draw_triangle): fix polygon/triangle drawing when the order of points is counter-clockwise
+- fix(btnmatrix): fix setting the same map with modified pointers
+- fix(arc) fix and improve arc dragging
+- label: Repair calculate back `dot` character logical error which cause infinite loop.
+- fix(theme_material): remove the bottom border from tabview header
+- fix(imgbtn) guess a the closest availabe state with valid src
+- fix(spinbox) update cursor position in lv_spinbox_set_step 
+
+## v7.7.1 (03.11.2020)
+### Bugfixes
+- Respect btnmatrix's `one_check` in `lv_btnmatrix_set_btn_ctrl`
+- Gauge: make the needle images to use the styles from `LV_GAUGE_PART_PART`
+- Group: fix in `lv_group_remove_obj` to handle deleting hidden obejcts correctly
+
+## v7.7.0 (20.10.2020)
+
+### New features
+- Add PXP GPU support (for NXP MCUs)
+- Add VG-Lite GPU support (for NXP MCUs)
+- Allow max. 16 cell types for table
+- Add `lv_table_set_text_fmt()`
+- Use margin on calendar header to set distances and padding to the size of the header
+- Add `text_sel_bg` style proeprty
+
+### Bugfixes
+- Theme update to support text selection background
+- Fix imgbtn state change
+- Support RTL in table (draw columns right to left)
+- Support RTL in pretty layout (draw columns right to left)
+- Skip objects in groups if they are in disabled state
+- Fix dropdown selection with RTL basedirection
+- Fix rectangle border drawing with large width
+- Fix `lv_win_clean()`
+
+## v7.6.1 (06.10.2020)
+
+### Bugfixes
+- Fix BIDI support in dropdown list
+- Fix copying base dir in `lv_obj_create`
+- Handle sub pixel rendering in font loader
+- Fix transitions with style caching
+- Fix click focus
+- Fix imgbtn image switching with empty style
+- Material theme: do not set the text font to allow easy global font change
+
+
+## v7.6.0 (22.09.2020)
+
+### New features
+- Check whether any style property has changed on a state change to decide if any redraw is required
+
+### Bugfixes
+- Fix selection of options with non-ASCII letters in dropdown list 
+- Fix font loader to support LV_FONT_FMT_TXT_LARGE
+
+## v7.5.0 (15.09.2020)
 
 ### New features
 - Add `clean_dcache_cb` and `lv_disp_clean_dcache` to enable users to use their own cache management function
 - Add `gpu_wait_cb` to wait until the GPU is working. It allows to run CPU a wait only when the rendered data is needed.
+- Add 10px and 8ox built in fonts
 
 ### Bugfixes
-
+- Fix unexpeted DEFOCUS on lv_page when clicking to bg after the scrollable
+- Fix `lv_obj_del` and `lv_obj_clean` if the children list changed during deletion.
+- Adjust button matrix button width to include padding when spanning multiple units.
+- Add rounding to btnmatrix line height calculation
+- Add `decmopr_buf` to GC roots
+- Fix divisioin by zero in draw_pattern (lv_draw_rect.c) if the image or letter is not found
+- Fix drawing images with 1 px height or width
 
 ## v7.4.0 (01.09.2020)
 
@@ -19,7 +131,7 @@ The main new features of v7.4 are run-time font loading, style caching and arc k
 - Add style caching to reduce acces time of properties with default value
 - arc: add set value by click feature
 - arc: add `LV_ARC_PART_KNOB` similarly to slider
-- send gestures even is the the obejct was dragged. User can check dragging with `lv_indev_is_dragging(lv_indev_act())` in the event function. 
+- send gestures even if the the obejct was dragged. User can check dragging with `lv_indev_is_dragging(lv_indev_act())` in the event function. 
 
 ### Bugfixes
 - Fix color bleeding on border drawing
@@ -261,7 +373,7 @@ The following object types are renamed:
 - Merge new features and fixes directly into `master` and release a patch or minor releases every 2 weeks.
 
 ### Migrating from v6 to v7
-- First and foremost, create a new `lv_conf.h` based on `lv_conf_templ.h`.
+- First and foremost, create a new `lv_conf.h` based on `lv_conf_template.h`.
 - To try the new version it suggested using a simulator project and see the examples.
 - If you have a running project, the most difficult part of the migration is updating to the new style system. Unfortunately, there is no better way than manually updating to the new format.
 - The other parts are mainly minor renames and refactoring as described above. 

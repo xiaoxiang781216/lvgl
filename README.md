@@ -1,4 +1,4 @@
-<h1 align="center"> LVGL - Light and Versatile Graphics Library</h1>
+<h1 align="center"> LVGL - Light and Versatile Graphics Library</h1> 
 
 <p align="center">
 <img src="https://lvgl.io/assets/images/img_1.png">
@@ -11,6 +11,7 @@ LVGL provides everything you need to create embedded GUI with easy-to-use graphi
 <h4 align="center">
 <a href="https://lvgl.io">Website </a> &middot; 
 <a href="https://lvgl.io/demos">Online demo</a> &middot; 
+<a href="https://lvgl.github.io/lv_examples/">Nightly demos</a> &middot; 
 <a href="https://docs.lvgl.io/">Docs</a> &middot; 
 <a href="https://forum.lvgl.io">Forum</a>
 </h4>
@@ -121,7 +122,7 @@ For more examples see the [lv_examples](https://github.com/lvgl/lv_examples) rep
 
 ### Button with label
 ```c
-lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     /*Add a button the current screen*/
+lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     /*Add a button to the current screen*/
 lv_obj_set_pos(btn, 10, 10);                            /*Set its position*/
 lv_obj_set_size(btn, 100, 50);                          /*Set its size*/
 lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
